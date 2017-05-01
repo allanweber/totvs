@@ -1,0 +1,110 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body style="padding: 10px;">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <h1>Game Endpoints</h1>
+            <h3>Sobre</h3>
+
+            <p>
+                Esse projeto visa expor dois endpoints para gerenciamento de pontuações de jogos.
+                Foi utilizado asp.net WEB API para expor os dois endpoints, ambos abaixo do endereço servidor/api/game, sendo que para envio de pontuações dos jogadores será usado o método POST e para receber o ranking os 100 melhores é utilizado o método GET.
+            </p>
+
+            <h3>Código fonte</h3>
+            <p>
+                Subi apenas as classes e demais arquivos de importância do projeto, as dependências deve ser obtidas através do comando nuget restore no Package Manager Console ou clicando com o botão direto na solution e selecionando Restore Nuget Packages
+            </p>
+
+            <h3>Algumas informações</h3>
+            <p>
+                Visando a simplicidade de acesso à dados que não é o foco desse teste optei por utilizar um arquivo de SQLite como banco de dados.
+                Visando a performance das queries e como o foco não é trabalhar profundamente com ORM optei pelo Micro ORM Dapper que é o mais rápido atualmente.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">GameResult (POST)</div>
+                <div class="panel-body">
+                    <p>Essa opção é utilizada para submeter o resultado de um jogo ao servidor.</p>
+                    <p>O envio deve ser feito atravês da url <strong>@ViewBag.URL</strong> utilizando o método http <strong>POST.</strong></p>
+                    <p>No header da requisição deve-se utilizar as coleção de chave valor para json, <i>Key: </i><strong>Content-Type</strong> <i>Value: </i><strong>application/json</strong></p>
+                    <p>O body da requisição deve conter um array de resultados conforme exemplo abaixo:</p>
+                    <div class="well">
+                        <p>[
+	                            {
+                                    "playerid": 1,
+                                    "gameid": 1,
+                                    "win": 50,
+                                    "timestamp": "2017-04-26t17:27:14 +08:00"
+                                }
+                                {
+                                    "playerid": 1,
+                                    "gameid": 2,
+                                    "win": 100,
+                                    "timestamp": "2017-04-26t23:48:19 +03:00"
+                                }
+                                ...
+                           ]</p>
+                    </div>
+                    <p>Em caso de sucesso, será retornado apenas o status 200 da requisção, em caso de erro será retornado um objeto contendo a mensagem de erro conforme abaixo:</p>
+                    <div class="well">
+                        <p>
+                            {
+                                "Message": "Game id 100 not exist"
+                            }
+                        </p>
+                    </div></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Leaderboard (GET)</div>
+                <div class="panel-body">
+                    <p>Essa opção é utilizada para recuperar o ranking dos 100 melhores jogadores.</p>
+                    <p>A requisição deve ser feito atravês da url <strong>@ViewBag.URL</strong> utilizando o método http <strong>GET.</strong></p>
+                    <p> O retorno da requisição, em caso de sucesso, conterá os 100 melhores jogadores listados em um array json conforme o objeto:</p>
+                    <div class="well">
+                        <p>
+                            [
+                                {
+                                "PlayerId": 1,
+                                "Balance": 800050,
+                                "LastUpdateDate": "2017-04-26T06:27:14-03:00"
+                                }
+                                {
+                                "PlayerId": 2,
+                                "Balance": 750000,
+                                "LastUpdateDate": "2017-04-26T06:27:14-03:00"
+                                }
+                                ...
+                            ]
+                        </p>
+                    </div>
+                    <p>Em caso de erro será retornado um objeto contendo a mensagem de erro conforme abaixo:</p>
+                    <div class="well">
+                        <p>
+                            {
+                            "Message": "Erro qualquer...."
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
