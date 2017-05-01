@@ -55,7 +55,13 @@ namespace GameEndpoint.Data
         /// <returns>Lista de dados do líder em pontuação</returns>
         public IEnumerable<Leaderboard> GetTop100()
         {
-            string sql = @"SELECT PlayerId, SUM(Win) Win, Timestamp 
+            /*  Aqui eu tive um problema com o tipo de dados DATETIMEOFFSET no
+             *  SQLite, que não existe e acabou convertendo minha carga dados para string.
+             *  Para o correto funcionamento da ordenação eu tive que parsear essa string e posteriomente
+             *  conververter para datetime para a correta ordenação
+             */
+            string sql = @"SELECT PlayerId, SUM(Win) Win, 
+                            MAX(datetime(substr(Timestamp,7,4) || '-' || substr(Timestamp,4,2)  || '-' || substr(Timestamp,1,2) || ' ' || substr(Timestamp,12,8))) || ' ' || substr(Timestamp,21) Timestamp
                             FROM GameResult 
                             GROUP BY PlayerId
                             ORDER BY Win DESC
