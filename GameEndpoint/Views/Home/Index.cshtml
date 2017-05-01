@@ -32,6 +32,11 @@
                 Visando a simplicidade de acesso à dados que não é o foco desse teste optei por utilizar um arquivo de SQLite como banco de dados.
                 Visando a performance das queries e como o foco não é trabalhar profundamente com ORM optei pelo Micro ORM Dapper que é o mais rápido atualmente.
             </p>
+
+            <h3>
+                Testes
+            </h3>
+            <p>Além do projeto de testes unitários, foram utilizados para testes das apis o POSTMAN e para testes de carga o Apache JMeter, o qual na raiz desse repositório existe o arquivo de configuração para testes utilizando essa ferramenta, chamado Requisição HTTP.jmx, basta abri-lo no Apache jMeter e rodar</p>
         </div>
     </div>
     <div class="row">
@@ -44,30 +49,33 @@
                     <p>No header da requisição deve-se utilizar as coleção de chave valor para json, <i>Key: </i><strong>Content-Type</strong> <i>Value: </i><strong>application/json</strong></p>
                     <p>O body da requisição deve conter um array de resultados conforme exemplo abaixo:</p>
                     <div class="well">
-                        <p>[
-	                            {
-                                    "playerid": 1,
-                                    "gameid": 1,
-                                    "win": 50,
-                                    "timestamp": "2017-04-26t17:27:14 +08:00"
-                                }
-                                {
-                                    "playerid": 1,
-                                    "gameid": 2,
-                                    "win": 100,
-                                    "timestamp": "2017-04-26t23:48:19 +03:00"
-                                }
-                                ...
-                           ]</p>
+                        <p>
+                            [
+                            {
+                            "playerid": 1,
+                            "gameid": 1,
+                            "win": 50,
+                            "timestamp": "2017-04-26t17:27:14 +08:00"
+                            }
+                            {
+                            "playerid": 1,
+                            "gameid": 2,
+                            "win": 100,
+                            "timestamp": "2017-04-26t23:48:19 +03:00"
+                            }
+                            ...
+                            ]
+                        </p>
                     </div>
                     <p>Em caso de sucesso, será retornado apenas o status 200 da requisção, em caso de erro será retornado um objeto contendo a mensagem de erro conforme abaixo:</p>
                     <div class="well">
                         <p>
                             {
-                                "Message": "Game id 100 not exist"
+                            "Message": "Game id 100 not exist"
                             }
                         </p>
-                    </div></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
@@ -80,17 +88,17 @@
                     <div class="well">
                         <p>
                             [
-                                {
-                                "PlayerId": 1,
-                                "Balance": 800050,
-                                "LastUpdateDate": "2017-04-26T06:27:14-03:00"
-                                }
-                                {
-                                "PlayerId": 2,
-                                "Balance": 750000,
-                                "LastUpdateDate": "2017-04-26T06:27:14-03:00"
-                                }
-                                ...
+                            {
+                            "PlayerId": 1,
+                            "Balance": 800050,
+                            "LastUpdateDate": "2017-04-26T06:27:14-03:00"
+                            }
+                            {
+                            "PlayerId": 2,
+                            "Balance": 750000,
+                            "LastUpdateDate": "2017-04-26T06:27:14-03:00"
+                            }
+                            ...
                             ]
                         </p>
                     </div>
